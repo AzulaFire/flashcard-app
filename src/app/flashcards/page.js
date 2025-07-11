@@ -1,4 +1,3 @@
-// src/app/flashcards/page.js
 'use client';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -7,19 +6,18 @@ import words from '@/data/words';
 
 export default function Flashcards() {
   const searchParams = useSearchParams();
+  const idsParam = searchParams.get('ids');
   const router = useRouter();
   const [selectedWords, setSelectedWords] = useState([]);
   const [index, setIndex] = useState(0);
   const [showBack, setShowBack] = useState(false);
 
   useEffect(() => {
-    const idsParam = searchParams.get('ids');
     if (!idsParam) return;
-
     const idArray = idsParam.split(',').map((id) => parseInt(id));
     const filtered = words.filter((w) => idArray.includes(w.id));
     setSelectedWords(filtered);
-  }, [searchParams]);
+  }, [idsParam]);
 
   const nextCard = () => {
     setShowBack(false);
