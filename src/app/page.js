@@ -75,33 +75,35 @@ export default function Home() {
         </span>
       </div>
 
-      <table className='w-full text-left border border-gray-300 bg-white'>
-        <thead>
-          <tr className='bg-gray-100'>
-            <th className='p-2'>Select</th>
-            <th className='p-2'>Word</th>
-            <th className='p-2'>Hiragana</th>
-            <th className='p-2'>Meaning</th>
-          </tr>
-        </thead>
-        <tbody>
-          {words.map((word) => (
-            <tr key={word.id} className='border-t'>
-              <td className='p-2'>
-                <input
-                  type='checkbox'
-                  checked={selected.includes(word.id)}
-                  onChange={() => toggleSelect(word.id)}
-                  className='cursor-pointer'
-                />
-              </td>
-              <td className='p-2'>{word.word}</td>
-              <td className='p-2'>{word.hiragana}</td>
-              <td className='p-2'>{word.meaning}</td>
+      <div className='overflow-x-auto'>
+        <table className='min-w-full text-left border border-gray-300 bg-white'>
+          <thead>
+            <tr className='bg-gray-100'>
+              <th className='p-2'>Select</th>
+              <th className='p-2'>Word</th>
+              <th className='p-2'>Hiragana</th>
+              <th className='p-2'>Meaning</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {words.map((word) => (
+              <tr key={word.id} className='border-t'>
+                <td className='p-2'>
+                  <input
+                    type='checkbox'
+                    checked={selected.includes(word.id)}
+                    onChange={() => toggleSelect(word.id)}
+                    className='cursor-pointer'
+                  />
+                </td>
+                <td className='p-2'>{word.word}</td>
+                <td className='p-2'>{word.hiragana}</td>
+                <td className='p-2 break-words max-w-xs'>{word.meaning}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <button
         className='mt-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 cursor-pointer'
