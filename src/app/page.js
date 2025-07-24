@@ -1,4 +1,3 @@
-// src/app/page.js
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -19,11 +18,51 @@ export default function Home() {
     router.push(`/flashcards?${query}`);
   };
 
+  const handleSelectAll = () => {
+    const allIds = words.map((word) => word.id);
+    setSelected(allIds);
+  };
+
+  const handleSelectRandom10 = () => {
+    const shuffled = [...words].sort(() => 0.5 - Math.random());
+    const random10 = shuffled.slice(0, 10).map((word) => word.id);
+    setSelected(random10);
+  };
+
+  const handleClearAll = () => {
+    setSelected([]);
+  };
+
   return (
     <main className='p-4 max-w-4xl mx-auto'>
       <h1 className='text-3xl font-bold mb-6 text-white'>
         Japanese Vocabulary
       </h1>
+
+      <div className='mb-4 flex flex-wrap gap-4 items-center'>
+        <button
+          className='px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700'
+          onClick={handleSelectAll}
+        >
+          Select All
+        </button>
+        <button
+          className='px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700'
+          onClick={handleSelectRandom10}
+        >
+          Select Random 10
+        </button>
+        <button
+          className='px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700'
+          onClick={handleClearAll}
+        >
+          Clear All
+        </button>
+        <span className='text-white font-semibold'>
+          Selected: {selected.length}
+        </span>
+      </div>
+
       <table className='w-full text-left border border-gray-300 bg-white'>
         <thead>
           <tr className='bg-gray-100'>
@@ -51,6 +90,7 @@ export default function Home() {
           ))}
         </tbody>
       </table>
+
       <button
         className='mt-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 cursor-pointer'
         onClick={handleStart}
