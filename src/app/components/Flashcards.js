@@ -77,13 +77,15 @@ export default function Flashcards() {
             className='w-[400px] h-64 rounded-xl bg-white shadow-lg flex items-center justify-center text-4xl font-bold text-center p-4 text-black'
           >
             {showBack ? (
-              current.meaning
-            ) : (
               <div className='flex flex-col items-center'>
-                <span>{current.word}</span>
+                {current.meaning}
                 <span className='text-gray-500 text-lg'>
                   {current.hiragana}
                 </span>
+              </div>
+            ) : (
+              <div className='flex flex-col items-center'>
+                <span className='text-6xl'>{current.word}</span>
               </div>
             )}
           </motion.div>

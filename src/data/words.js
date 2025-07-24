@@ -24,9 +24,9 @@ const words = [
   { id: 12, word: '長すぎる', hiragana: 'ながすぎる', meaning: 'too long' },
   {
     id: 13,
-    word: '答えられているか',
-    hiragana: 'こたえられているか',
-    meaning: 'is it answered?',
+    word: '答える',
+    hiragana: 'こたえる',
+    meaning: 'to answer',
   },
   { id: 14, word: '強い', hiragana: 'つよい', meaning: 'strong' },
   { id: 15, word: '言語', hiragana: 'げんご', meaning: 'language' },

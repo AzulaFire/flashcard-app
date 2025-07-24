@@ -1,32 +1,44 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import words from '@/data/words';
 
 export default function Home() {
   const [selected, setSelected] = useState([]);
+  const [autoStart, setAutoStart] = useState(false); // NEW
   const router = useRouter();
-
-  const toggleSelect = (id) => {
-    setSelected((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
-    );
-  };
 
   const handleStart = () => {
     const query = `ids=${selected.join(',')}`;
     router.push(`/flashcards?${query}`);
   };
 
+  useEffect(() => {
+    if (autoStart && selected.length > 0) {
+      handleStart();
+      setAutoStart(false); // reset flag
+    }
+  }, [selected, autoStart]);
+
   const handleSelectAll = () => {
     const allIds = words.map((word) => word.id);
     setSelected(allIds);
+    setAutoStart(true); // trigger navigation after state update
   };
 
   const handleSelectRandom10 = () => {
     const shuffled = [...words].sort(() => 0.5 - Math.random());
     const random10 = shuffled.slice(0, 10).map((word) => word.id);
     setSelected(random10);
+    setAutoStart(true); // trigger navigation after state update
+  };
+
+  const toggleSelect = (id) => {
+    setSelected((prevSelected) =>
+      prevSelected.includes(id)
+        ? prevSelected.filter((selectedId) => selectedId !== id)
+        : [...prevSelected, id]
+    );
   };
 
   const handleClearAll = () => {
